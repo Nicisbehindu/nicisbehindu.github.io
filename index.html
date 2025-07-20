@@ -1,44 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Nick's Paid Unblocker - The best unblocker tool for seamless browsing.">
-  <title>Nick's Paid Unblocker</title>
-  <link rel="stylesheet" href="/styles.css"> <!-- Include a CSS file if needed -->
+  <title>We Have Your Location</title>
+  <style>
+    body {
+      background-color: black;
+      color: red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2em;
+    }
+  </style>
+  <script>
+    fetch("https://ipapi.co/json/")
+      .then(res => res.json())
+      .then(data => {
+        const ip = data.ip;
+        const city = data.city;
+        const region = data.region;
+        const country = data.country_name;
+
+        document.body.innerHTML = `<h1>We have your locatiON DDOS IS STARTING:<br>${city}, ${region}, ${country}<br>(IP: ${ip})</h1>`;
+      })
+      .catch(() => {
+        document.body.innerHTML = `<h1>We have your location.<br>DDOS STARTING.</h1>`;
+      });
+  </script>
 </head>
 <body>
-  <header>
-    <h1>Welcome to Nick's Paid Unblocker</h1>
-    <p>Your gateway to seamless browsing without restrictions.</p>
-  </header>
-  
-  <main>
-    <section id="about">
-      <h2>About Nick's Unblocker</h2>
-      <p>Nick's Paid Unblocker is a cutting-edge tool designed to help you access restricted content with ease. Whether you're at school, work, or just trying to browse freely, we've got you covered.</p>
-    </section>
-
-    <section id="features">
-      <h2>Features</h2>
-      <ul>
-        <li>Fast and reliable connections</li>
-        <li>Simple and user-friendly interface</li>
-        <li>Works on any device</li>
-        <li>Completely secure and private</li>
-      </ul>
-    </section>
-
-    <section id="get-started">
-      <h2>Get Started</h2>
-      <p>To start using Nick's Paid Unblocker, simply select an option from the menu or navigate to the apps section.</p>
-      <a href="/apps" class="btn">Explore Apps</a>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 Nick's Paid Unblocker. All rights reserved.</p>
-    <p>Need help? <a href="/info">Visit our info page</a> or join us on <a href="https://discord.gg/unblocking" target="_blank">Discord</a>.</p>
-  </footer>
+  <h1>Tracking location...</h1>
 </body>
 </html>
